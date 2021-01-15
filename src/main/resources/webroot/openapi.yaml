@@ -1,0 +1,239 @@
+openapi: 3.0.0
+
+info:
+  version: "0.0.1"
+  title: Open Data Blockchain (Publisher Node)
+
+# The tags on paths define the menu sections in the ReDoc documentation, so
+# the usage of tags must make sense for that:
+# - They should be singular, not plural.
+# - There should not be too many tags, or the menu becomes unwieldly. For
+#   example, it is preferable to add a path to the "System" tag instead of
+#   creating a tag with a single path in it.
+# - The order of tags in this list defines the order in the menu.
+tags:
+  # Primary objects
+  - name: Main
+    x-displayName: "Main"
+    description: "Main Entry point"
+  - name: Node
+    x-displayName: "Node"
+    description: "Node Entry point"
+  - name: Protocol
+    x-displayName: "Protocol"
+    description: "Protocol endpoint"
+  - name: Admin
+    x-displayName: "Admin"
+    description: "Admin endpoint"
+
+
+paths:
+  /status:
+    get:
+      description: Status of the node
+      operationId: status
+      tags:
+        - Main
+      responses:
+        '200':
+          description: Request accepted.
+          content:
+            application/json:
+              schema:
+                type: string
+
+  /protocol/action:
+    post:
+      description: Invoke an action
+      operationId: postProtocolAction
+      tags:
+        - Protocol
+      requestBody:
+        required: true
+        content:
+          'application/json':
+            schema:
+              type: object
+      responses:
+        '202':
+          description: Accepted
+
+  /protocol/sync:
+    post:
+      description: Sync Socket
+      operationId: syncProtocolAction
+      tags:
+        - Protocol
+      requestBody:
+        required: true
+        content:
+          'application/json':
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Accepted
+
+
+  /node/transactions:
+    get:
+      description: Get transactions
+      operationId: getTransactions
+      tags:
+        - Node
+      parameters:
+        - in: query
+          name: page
+          description: The page number of matching results
+          schema:
+            type: integer
+            minimum: 0
+        - in: query
+          name: limit
+          description: The maximum number of matching datasets per page
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 1000
+      responses:
+        '200':
+          description: Request accepted.
+          content:
+            application/json:
+              schema:
+                type: object
+    post:
+      description: Issue a new transaction
+      operationId: postTransaction
+      tags:
+        - Node
+      requestBody:
+        required: true
+        content:
+          'application/json':
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Created
+          content:
+            'application/json':
+              schema:
+                type: object
+  /node/blockchain:
+    get:
+      description: Get the blockchain
+      operationId: getBlockchain
+      tags:
+        - Node
+      parameters:
+        - in: query
+          name: page
+          description: The page number of matching results
+          schema:
+            type: integer
+            minimum: 0
+        - in: query
+          name: limit
+          description: The maximum number of matching datasets per page
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 1000
+      responses:
+        '200':
+          description: Request accepted.
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /node/datasets:
+    get:
+      description: Get all Datasets
+      operationId: getDatasets
+      tags:
+        - Node
+      parameters:
+        - in: query
+          name: page
+          description: The page number of matching results
+          schema:
+            type: integer
+            minimum: 0
+        - in: query
+          name: limit
+          description: The maximum number of matching datasets per page
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 1000
+      responses:
+        '200':
+          description: Request accepted.
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /node/datasets/{id}:
+    get:
+      description: Get a dataset
+      summary: Get a dataset
+      operationId: getDataset
+      tags:
+        - Node
+      parameters:
+        - name: id
+          in: path
+          description: Id of the requested dataset
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Found dataset
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /admin/database:
+    post:
+      description: Execute a database operation
+      operationId: postDatabase
+      tags:
+        - Admin
+      requestBody:
+        required: true
+        content:
+          'application/json':
+            schema:
+              type: object
+      responses:
+        '202':
+          description: Accepted
+          content:
+            'application/json':
+              schema:
+                type: object
+  /admin/node:
+    post:
+      description: Execute a node operation
+      summary: Execute Node Admin Operations
+      operationId: postAdminNode
+      tags:
+        - Admin
+      requestBody:
+        required: true
+        content:
+          'application/json':
+            schema:
+              type: object
+      responses:
+        '202':
+          description: Accepted
+          content:
+            'application/json':
+              schema:
+                type: object

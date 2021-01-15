@@ -1,0 +1,115 @@
+openapi: 3.0.0
+
+info:
+  version: "0.0.1"
+  title: Open Data Blockchain (Authority Node)
+
+# The tags on paths define the menu sections in the ReDoc documentation, so
+# the usage of tags must make sense for that:
+# - They should be singular, not plural.
+# - There should not be too many tags, or the menu becomes unwieldly. For
+#   example, it is preferable to add a path to the "System" tag instead of
+#   creating a tag with a single path in it.
+# - The order of tags in this list defines the order in the menu.
+tags:
+  # Primary objects
+  - name: Main
+    x-displayName: "Main"
+    description: "Main Entry point"
+  - name: Node
+    x-displayName: "Node"
+    description: "Node Entry point"
+  - name: Admin
+    x-displayName: "Admin"
+    description: "Admin endpoint"
+
+
+paths:
+  /status:
+    get:
+      description: Status of the node
+      operationId: status
+      tags:
+        - Main
+      responses:
+        '200':
+          description: Request accepted.
+          content:
+            application/json:
+              schema:
+                type: string
+
+  /node/peers:
+    get:
+      description: Get peers
+      operationId: getPeers
+      tags:
+        - Node
+      responses:
+        '200':
+          description: Request accepted.
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /admin/database:
+    post:
+      description: Execute a database operation
+      operationId: postDatabase
+      tags:
+        - Admin
+      requestBody:
+        required: true
+        content:
+          'application/json':
+            schema:
+              type: object
+      responses:
+        '202':
+          description: Accepted
+          content:
+            'application/json':
+              schema:
+                type: object
+  /admin/node:
+    post:
+      description: Execute a node operation
+      summary: Execute Node Admin Operations
+      operationId: postAdminNode
+      tags:
+        - Admin
+      requestBody:
+        required: true
+        content:
+          'application/json':
+            schema:
+              type: object
+      responses:
+        '202':
+          description: Accepted
+          content:
+            'application/json':
+              schema:
+                type: object
+
+  /admin/addpeer:
+    post:
+      description: Add a new peer
+      summary: Add a New Peer
+      operationId: postAdminNewPeer
+      tags:
+        - Admin
+      requestBody:
+        required: true
+        content:
+          'text/plain':
+            schema:
+              type: object
+      responses:
+        '202':
+          description: Accepted
+          content:
+            'application/json':
+              schema:
+                type: object

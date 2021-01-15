@@ -1,0 +1,19 @@
+{
+    "MODE": "publisher",
+    "NODE_ID": "node01",
+    "NAME": "Node 01",
+    "PORT": 8080,
+    "URL": "http://localhost:8080",
+    "MONGO_HOST": "localhost",
+    "MONGO_PORT": 27017,
+    "MONGO_DB": "node01",
+    "INITIAL_PRIMARY": "node01",
+    "AUTO_SYNC": false,
+    "AUTHORITY_NODE": "http://localhost:5000",
+    "NETWORK_DELAY": {
+        "enabled": false,
+        "min": 1000,
+        "max": 5000
+    },
+    "TACT": 4000
+}
